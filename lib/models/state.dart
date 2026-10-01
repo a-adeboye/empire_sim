@@ -7,20 +7,11 @@ class WorldState {
   int worldSeed;
   PlayerCharacter player;
   List<BankAccount> banks;
-<<<<<<< HEAD
   
   List<Asset> worldAssets; 
   List<DefenseContract> activeDefenseContracts; // Replaced dynamic
   double playerCash;
   Currency? activeCurrency; // Replaced dynamic
-=======
-  
-  // New properties required by the engine commands
-  List<Asset> worldAssets; 
-  List<dynamic> activeDefenseContracts; // Assuming DefenseContract is imported
-  double playerCash;
-  dynamic activeCurrency; // Assuming Currency enum from geopolitics
->>>>>>> 9bfa62bc869dfea9f0632c4626073dd53b59e9c9
 
   WorldState({
     required this.year,
@@ -45,16 +36,9 @@ class PlayerCharacter {
   int status;
   int influence;
 
-<<<<<<< HEAD
   List<String> degrees;
   List<String> licenses;
 
-=======
-  // Added to support business and career prerequisites
-  List<String> degrees;
-  List<String> licenses;
-
->>>>>>> 9bfa62bc869dfea9f0632c4626073dd53b59e9c9
   PlayerCharacter({
     required this.name,
     required this.age,
@@ -67,7 +51,6 @@ class PlayerCharacter {
     this.degrees = const [],
     this.licenses = const [],
   });
-<<<<<<< HEAD
 
   bool hasDegree(String degreeName) {
     return degrees.contains(degreeName);
@@ -76,17 +59,6 @@ class PlayerCharacter {
   bool hasLicense(String licenseName) {
     return licenses.contains(licenseName);
   }
-=======
-
-  // The missing methods required by the Business Engine
-  bool hasDegree(String degreeName) {
-    return degrees.contains(degreeName);
-  }
-
-  bool hasLicense(String licenseName) {
-    return licenses.contains(licenseName);
-  }
->>>>>>> 9bfa62bc869dfea9f0632c4626073dd53b59e9c9
 }
 
 enum AccountType { traditional, fintech }
