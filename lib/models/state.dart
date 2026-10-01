@@ -1,6 +1,4 @@
 import 'entities.dart';
-import 'defense_contracts.dart';
-import 'geopolitics.dart';
 
 class WorldState {
   int year;
@@ -8,10 +6,11 @@ class WorldState {
   PlayerCharacter player;
   List<BankAccount> banks;
   
+  // New properties required by the engine commands
   List<Asset> worldAssets; 
-  List<DefenseContract> activeDefenseContracts; // Replaced dynamic
+  List<dynamic> activeDefenseContracts; // Assuming DefenseContract is imported
   double playerCash;
-  Currency? activeCurrency; // Replaced dynamic
+  dynamic activeCurrency; // Assuming Currency enum from geopolitics
 
   WorldState({
     required this.year,
@@ -36,6 +35,7 @@ class PlayerCharacter {
   int status;
   int influence;
 
+  // Added to support business and career prerequisites
   List<String> degrees;
   List<String> licenses;
 
@@ -52,6 +52,7 @@ class PlayerCharacter {
     this.licenses = const [],
   });
 
+  // The missing methods required by the Business Engine
   bool hasDegree(String degreeName) {
     return degrees.contains(degreeName);
   }
