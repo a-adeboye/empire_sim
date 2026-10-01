@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'ui/glass_dashboard.dart';
+import 'ui/glassmorphism_dashboard.dart';
 
 void main() {
   runApp(EmpireSimApp());
