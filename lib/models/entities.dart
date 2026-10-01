@@ -1,3 +1,5 @@
+import 'ownership.dart';
+
 abstract class LegalEntity {
   String id;
   String name;

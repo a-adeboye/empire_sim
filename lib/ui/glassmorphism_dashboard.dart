@@ -1,5 +1,8 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import '../engine/simulation.dart';
+import '../models/business.dart'; // Needed to count the businesses
 
 class GlassDashboard extends StatefulWidget {
   @override
@@ -7,16 +10,29 @@ class GlassDashboard extends StatefulWidget {
 }
 
 class _GlassDashboardState extends State<GlassDashboard> {
+  // Initialize the master simulation engine
+  final SimulationEngine engine = SimulationEngine();
+  
+  // Use compact formatting (e.g., $4.2B instead of $4,200,000,000)
+  final currencyFormatter = NumberFormat.compactCurrency(symbol: '\$');
+
   // Triggers the complex simulation loop silently
   void _ageUp() {
     setState(() {
-      // engine.tick(); 
+      engine.tick(); 
       // This runs the exchange rates, stock markets, and maintenance silently!
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    final state = engine.currentState;
+    final player = state.player;
+    
+    // Dynamically calculate the player's business empire
+    int totalBusinesses = state.worldAssets.whereType<Company>().length;
+    int publicBusinesses = state.worldAssets.whereType<Company>().where((c) => c.isPublic).length;
+
     return Scaffold(
       // A dynamic, vibrant background is required for the glass effect to work
       body: Container(
@@ -35,11 +51,14 @@ class _GlassDashboardState extends State<GlassDashboard> {
                 _buildGlassCard(
                   child: Column(
                     children: [
-                      Text("👤 ALEXANDER ADEBAYO", style: TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold)),
-                      Text("Age 28 • Toronto, Canada 🇨🇦", style: TextStyle(color: Colors.white70, fontSize: 16)),
+                      Text("👤 ${player.name.toUpperCase()}", style: TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold)),
+                      Text("Age ${player.age} • ${player.country}", style: TextStyle(color: Colors.white70, fontSize: 16)),
                       Divider(color: Colors.white24),
-                      _buildStatRow("💰 Net Worth", "\$4.2B CAD"),
-                      _buildStatRow("🏢 Businesses", "3 (1 Public)"),
+                      _buildStatRow("💰 Net Worth", currencyFormatter.format(engine.getTotalNetWorth())),
+                      _buildStatRow("🏢 Businesses", "$totalBusinesses ($publicBusinesses Public)"),
+                      Divider(color: Colors.white24),
+                      _buildStatRow("❤️ Health", "${player.health}/100"),
+                      _buildStatRow("⭐ Status", "${player.status}"),
                     ],
                   ),
                 ),
