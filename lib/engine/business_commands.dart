@@ -1,10 +1,10 @@
 import '../models/entities.dart';
 import '../models/business.dart';
 import '../models/ownership.dart';
-// Assuming WorldState from previous architecture is imported
+import '../models/state.dart'; // Imported WorldState
 
 abstract class Command {
-  void execute(dynamic state); // dynamic used here as placeholder for WorldState
+  void execute(WorldState state); // Changed from dynamic to WorldState
 }
 
 class FormHoldingCompanyCommand implements Command {
@@ -16,7 +16,7 @@ class FormHoldingCompanyCommand implements Command {
   FormHoldingCompanyCommand(this.founder, this.companyName, this.jurisdiction, this.initialCapital);
 
   @override
-  void execute(dynamic state) {
+  void execute(WorldState state) { // Changed from dynamic to WorldState
     // 1. Enforce the 10-Business Limit
     int controlledBusinesses = state.worldAssets.whereType<Company>().where((company) {
       var playerStake = company.capTable.firstWhere(
@@ -41,6 +41,7 @@ class FormHoldingCompanyCommand implements Command {
       name: companyName,
       jurisdiction: jurisdiction,
       marketValue: initialCapital,
+      type: BusinessType.holdingAndInvestment,
       industrySector: "Holding & Investment",
       capTable: [
         OwnershipStake(

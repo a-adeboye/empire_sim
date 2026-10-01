@@ -1,5 +1,6 @@
 import '../models/business.dart';
 import '../models/defense_contracts.dart';
+import '../models/state.dart';
 
 class BidForDefenseContractCommand {
   final Company company;
@@ -14,7 +15,7 @@ class BidForDefenseContractCommand {
     this.discountOffered = 0.0,
   });
 
-  void execute(dynamic state) {
+  void execute(WorldState state) { // Changed from dynamic to WorldState
     // 1. Verify Company Sector Legitimacy
     bool isEligibleSector = company.type == BusinessType.roboticsDefense || 
                            company.type == BusinessType.autoManufacturing;

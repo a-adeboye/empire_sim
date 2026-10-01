@@ -1,3 +1,5 @@
+import '../models/state.dart';
+
 enum Currency { ngn, aed, sar, usd, gbp, eur, krw, jpy, cny, thb, cad }
 
 class Country {
@@ -20,10 +22,9 @@ class WorldDatabase {
     'USA': Country('USA', 'United States', Currency.usd, 0.21, 1.0),
     'GBR': Country('GBR', 'United Kingdom', Currency.gbp, 0.25, 0.73),
     'JPN': Country('JPN', 'Japan', Currency.jpy, 0.30, 158.03),
-    'CHN': Country('CHN', 'China', Currency.chy, 0.25, 7.32),
+    'CHN': Country('CHN', 'China', Currency.cny, 0.25, 7.32),
     'THA': Country('THA', 'Thailand', Currency.thb, 0.20, 33.65),
     'CAN': Country('CAN', 'Canada', Currency.cad, 0.265, 1.35),
-   
   };
 }
 
@@ -32,7 +33,7 @@ class EmigrateCommand {
 
   EmigrateCommand(this.targetCountryId);
 
-  void execute(dynamic state) { // dynamic represents WorldState
+  void execute(WorldState state) { // Changed from dynamic to WorldState
     Country current = WorldDatabase.countries[state.player.country]!;
     Country target = WorldDatabase.countries[targetCountryId]!;
 
