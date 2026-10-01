@@ -36,7 +36,8 @@ class SimulationEngine {
     // Initialization / World Seed
     currentState = WorldState(
       year: 2026,
-      player: PlayerCharacter(name: "Alexander Adebayo", age: 18, country: "Nigeria"),
+      worldSeed: 483920, // FIX: Added the required worldSeed for deterministic events
+      player: PlayerCharacter(name: "Alexander Adebayo", age: 18, country: "NGA"), // FIX: Using the exact ID from WorldDatabase
       banks: [],
     );
   }
